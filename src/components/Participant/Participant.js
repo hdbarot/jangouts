@@ -39,6 +39,10 @@ function Participant({ id, display, isPublisher, isLocalScreen, streamReady, foc
   const cssClassName = `Participant ${focus === 'user' ? 'focus' : ''}`;
 
   useEffect(() => {
+    if (!video) {
+      return;
+    }
+
     if (focus) {
       unsetVideo(videoRef.current);
     } else {
@@ -48,13 +52,21 @@ function Participant({ id, display, isPublisher, isLocalScreen, streamReady, foc
 
   return (
     <div className={cssClassName}>
-      <video
-        ref={videoRef}
-        muted={isPublisher}
-        autoPlay
-        className={isPublisher && !isLocalScreen ? 'mirrored' : ''}
-        onClick={() => dispatch(toggleFocus(id, focus))}
-      />
+      {// FIXME: keep JSX short.
+      //   a) move this out, e.g. renderX function; or
+      //   b) split Participant in small components? or
+      //   c) whatever
+      video ? (
+        <video
+          ref={videoRef}
+          muted={isPublisher}
+          autoPlay
+          className={isPublisher && !isLocalScreen ? 'mirrored' : ''}
+          onClick={() => dispatch(toggleFocus(id, focus))}
+        />
+      ) : (
+        <img src="" />
+      )}
       <div className="display">{display}</div>
       {!isLocalScreen && <MuteButton participantId={id} />}
       {isPublisher && !isLocalScreen && <ToggleVideo video={video} />}
