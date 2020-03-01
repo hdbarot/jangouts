@@ -14,7 +14,6 @@ import './Participants.css';
 
 const Participants = () => {
   const participants = useSelector((state) => state.participants);
-  const thumbnailMode = useSelector((state) => state.room.thumbnailMode);
 
   return (
     <div className="Participants">
@@ -29,8 +28,6 @@ const Participants = () => {
           video
         } = participants[key];
 
-        let showVideo = (isPublisher && video) || (!thumbnailMode && video);
-
         return (
           <Participant
             key={key}
@@ -40,7 +37,7 @@ const Participants = () => {
             isLocalScreen={isLocalScreen}
             streamReady={stream_timestamp}
             focus={focus}
-            video={showVideo}
+            video={video}
           />
         );
       })}

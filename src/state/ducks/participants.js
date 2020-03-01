@@ -14,6 +14,7 @@ const PARTICIPANT_UPDATE_STATUS = 'jangouts/participant/UPDATE_STATUS';
 const PARTICIPANT_UPDATE_LOCAL_STATUS = 'jangouts/participant/UPDATE_LOCAL_STATUS';
 const PARTICIPANT_SPEAKING = 'jangouts/participant/PARTICIPANT_SPEAKING';
 const PARTICIPANT_SET_FOCUS = 'jangouts/participant/PARTICIPANT_SET_FOCUS';
+const PARTICIPANT_TOGGLE_THUMBNAIL_MODE = 'jangouts/participant/TOGGLE_THUMBNAIL_MODE';
 
 const addParticipant = (participant) => {
   const { id, display, isPublisher, isLocalScreen, isIgnored } = participant;
@@ -49,6 +50,22 @@ const toggleVideo = (id) => {
 const reconnect = (id) => {
   return function() {
     janusApi.reconnectFeed(id);
+  };
+};
+
+const toggleThumbnailMode = () => {
+  return function(dispatch, getState) {
+    const participants = getState().participants; // TODO: Use a selector
+
+    Object.keys(participants).forEach((id) => {
+      let participant = participants[id];
+
+      if (participant.isPublisher) {
+        return;
+      }
+
+      janusApi.toggleThumbnailMode(id);
+    });
   };
 };
 
@@ -135,7 +152,8 @@ const actionCreators = {
   unsetFocus,
   autoSetFocus,
   startScreenSharing,
-  stopScreenSharing
+  stopScreenSharing,
+  toggleThumbnailMode
 };
 
 const actionTypes = {

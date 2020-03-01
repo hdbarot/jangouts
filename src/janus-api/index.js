@@ -82,8 +82,8 @@ export default (function() {
   that.toggleVideo = () => {
     that.roomService.toggleChannel('video');
   };
-  that.toggleThumbnailMode = () => {
-    return that.actionService.toggleVideoSubscription();
+  that.toggleThumbnailMode = (feedId) => {
+    return that.actionService.toggleVideoSubscription(feedId);
   };
 
   that.reconnectFeed = (feedId) => that.roomService.reconnectFeed(feedId);

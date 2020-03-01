@@ -10,7 +10,6 @@ import history from '../../utils/history';
 
 const ROOM_LOGIN = 'jangouts/room/LOGIN';
 const ROOM_LOGOUT = 'jangouts/room/LOGOUT';
-const ROOM_TOGGLE_THUMBNAIL_MODE = 'jangouts/room/TOGGLE_THUMBNAIL_MODE';
 
 const login = (username, room) => {
   return function(dispatch) {
@@ -54,19 +53,10 @@ const logout = () => {
   };
 };
 
-const toggleThumbnailMode = () => {
-  return function(dispatch) {
-    let thumbnailMode = !!janusApi.toggleThumbnailMode();
-
-    dispatch({ type: ROOM_TOGGLE_THUMBNAIL_MODE, payload: { thumbnailMode } });
-  };
-};
-
 const actionCreators = {
   login,
   logout,
-  loginFailure,
-  toggleThumbnailMode
+  loginFailure
 };
 
 const actionTypes = {
@@ -83,12 +73,11 @@ const reducer = function(state = initialState, action) {
     case ROOM_LOGIN: {
       return payload;
     }
+
     case ROOM_LOGOUT: {
       return initialState;
     }
-    case ROOM_TOGGLE_THUMBNAIL_MODE: {
-      return { ...state, ...payload };
-    }
+
     default:
       return state;
   }

@@ -25,7 +25,7 @@ function Sidebar() {
       <Button action={roomActions.logout}>
         <GiExitDoor />
       </Button>
-      <Button className="red" action={roomActions.toggleThumbnailMode}>
+      <Button className="red" action={participantActions.toggleThumbnailMode}>
         <MdPhoto />
       </Button>
     </div>

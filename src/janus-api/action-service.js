@@ -141,8 +141,9 @@ export const createActionService = (
     }
   };
 
-  that.toggleVideoSubscription = function() {
-    var feed = feedsService.findMain();
+  that.toggleVideoSubscription = function(feedId) {
+    var feed = feedsService.find(feedId);
+
     if (!feed) {
       return;
     }
