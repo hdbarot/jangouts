@@ -12,7 +12,7 @@ const renderUsername = (feed) => {
     return null;
   }
 
-  return <span className="username">{feed.display}</span>;
+  return <span>{feed.display}</span>;
 };
 
 function Message({ type, content, text, timestamp }) {
@@ -21,12 +21,18 @@ function Message({ type, content, text, timestamp }) {
   const time = `${datetime.getHours()}:${String(datetime.getMinutes()).padStart('2', 0)}`;
 
   return (
-    <li data-testid="message" className="chat-message">
-      <div className="info">
-        {content && renderUsername(content.feed)}
-        <time dateTime={timestamp}>{time}</time>
+    <li className="rounded m-2 p-2 bg-white shadow" data-testid="message">
+      <div className="flex justify-between">
+        <div className="mr-1 font-bold text-xs md:text-sm">
+          {content && renderUsername(content.feed)}
+        </div>
+        <time className="font-mono text-xs text-primary" dateTime={timestamp}>
+          {time}
+        </time>
       </div>
-      <div>{text()}</div>
+      <div className="px-2">
+        {text()}
+      </div>
     </li>
   );
 }

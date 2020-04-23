@@ -13,7 +13,7 @@ function MessagesList() {
   const messages = useSelector((state) => state.messages);
 
   return (
-    <div className="MessageList">
+    <div className="h-full overflow-y-auto">
       <ul>
         {messages.map((m, index) => (
           <Message key={index} {...m} />
